@@ -9,6 +9,6 @@ class CreateRoads < ActiveRecord::Migration[5.1]
     end
 
     add_index :roads, :street_name
-    add_index :taggings, %i[intersection1_id intersection2_id], unique: true
+    add_index :roads, %i[intersection1_id intersection2_id], unique: true
   end
 end
