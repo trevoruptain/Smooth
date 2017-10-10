@@ -14,3 +14,5 @@ npm-debug.*
 /yarn-error.log
 
 .byebug_history
+
+data/lib/key.js
