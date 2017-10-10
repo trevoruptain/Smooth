@@ -7,8 +7,9 @@ const crimes = require(path.join(
   __dirname,
   "../data/processed/",
   "crimes.json"
-));
-const roads = require(path.join(__dirname, "../data/processed/", "roads.json"));
+)).data;
+
+const roads = require(path.join(__dirname, "../data/raw/", "roads.json"));
 const intersections = require(path.join(
   __dirname,
   "../data/processed/",
@@ -23,6 +24,63 @@ const lngToMeters = lng => {
   return 88101.33 * lng;
 };
 
-const distance = (x1, y1, x2, y2) => {
-  return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+const distance = (pos1, pos2) => {
+  return Math.sqrt(Math.pow(pos2.x - pos1.x, 2) + Math.pow(pos2.y - pos1.y, 2));
 };
+
+const createBounds = (pos1, pos2) => {
+  const isInBound = (x, y) => {
+    return (
+      (x >= Math.min(pos1.x, pos2.x) && y >= Math.min(pos1.y, pos2.y)) &&
+      (x <= Math.max(pos1.x, pos2.x) && y <= Math.max(pos1.y, pos2.y))
+    );
+  };
+  return isInBound;
+};
+
+roads.slice(0, 100).forEach((road, i) => {
+  const roadCrimes = [];
+  const i1Pos = {
+    x: lngToMeters(intersections[road.intersection1_id].location.lng),
+    y: latToMeters(intersections[road.intersection1_id].location.lat)
+  };
+  const i2Pos = {
+    x: lngToMeters(intersections[road.intersection2_id].location.lng),
+    y: latToMeters(intersections[road.intersection2_id].location.lat)
+  };
+  const isInBounds = createBounds(i1Pos, i2Pos);
+
+  const m = // slope for intersection 1 to intersection 2
+    (i2Pos.y - i1Pos.y) / (i2Pos.x - i1Pos.x);
+  const n = -1 / m; // slope for orthogonal line from crime position to road line
+  const b_p = -m * i1Pos.x + i1Pos.y; // y-intercept for road line
+
+  crimes.slice(0,10).forEach((crime, j) => {
+    const crimePos = {
+      x: lngToMeters(crime.location.lng),
+      y: latToMeters(crime.location.lat)
+    };
+    const b_c = -n * crimePos.x + crimePos.y;
+
+    const xOrthIntersection = (b_c - b_p) / (m - n);
+    const yOrthIntersection = m * xOrthIntersection + b_p;
+    const orthIntersectionPos = {x: xOrthIntersection, y: yOrthIntersection};
+
+    if (isInBounds(xOrthIntersection, yOrthIntersection)) {
+      if (distance(crimePos, orthIntersectionPos) < CRIME_RADIUS ){
+        roadCrimes.push(crime);
+      }
+    } else {
+      const d1 = distance(crimePos, i1Pos);
+      const d2 = distance(crimePos, i2Pos);
+
+      if (d1 <= CRIME_RADIUS || d2 <= CRIME_RADIUS) roadCrimes.push(crime);
+    }
+  });
+  // console.log(roadCrimes);
+  roads[i]["crimes"] = roadCrimes;
+  // console.log("i1Pos", i1Pos);
+  // console.log("i2Pos", i2Pos);
+  // console.log("m", m);
+  // console.log(b_p);
+});
