@@ -1,7 +1,12 @@
 const fs = require("fs");
 const path = require("path");
 
-const CRIME_RADIUS = 100; // in meters
+const CRIME_RADIUS = 80; // in meters
+const processedRoadsExportPath = path.join(
+  __dirname,
+  "../data/processed/",
+  "roads.json"
+);
 
 const crimes = require(path.join(
   __dirname,
@@ -38,7 +43,7 @@ const createBounds = (pos1, pos2) => {
   return isInBound;
 };
 
-roads.slice(0, 100).forEach((road, i) => {
+roads.slice(0,2).forEach((road, i) => {
   const roadCrimes = [];
   const i1Pos = {
     x: lngToMeters(intersections[road.intersection1_id].location.lng),
@@ -55,7 +60,7 @@ roads.slice(0, 100).forEach((road, i) => {
   const n = -1 / m; // slope for orthogonal line from crime position to road line
   const b_p = -m * i1Pos.x + i1Pos.y; // y-intercept for road line
 
-  crimes.slice(0,10).forEach((crime, j) => {
+  crimes.forEach((crime, j) => {
     const crimePos = {
       x: lngToMeters(crime.location.lng),
       y: latToMeters(crime.location.lat)
@@ -77,10 +82,12 @@ roads.slice(0, 100).forEach((road, i) => {
       if (d1 <= CRIME_RADIUS || d2 <= CRIME_RADIUS) roadCrimes.push(crime);
     }
   });
-  // console.log(roadCrimes);
+
   roads[i]["crimes"] = roadCrimes;
-  // console.log("i1Pos", i1Pos);
-  // console.log("i2Pos", i2Pos);
-  // console.log("m", m);
-  // console.log(b_p);
+});
+
+fs.writeFile(processedRoadsExportPath, JSON.stringify(roads), function(
+  err
+) {
+  err ? console.log(err) : console.log("Processed Roads data was sucessfully exported!");
 });

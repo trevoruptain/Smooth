@@ -7,8 +7,8 @@ const processCrimeData = (rawData, crimeRateMap) => {
   const location = "location";
   const filterCols = ["X", "Y", "Category"];
   const exportColNamesMap = {
-    X: "lat",
-    Y: "lng",
+    X: "lng",
+    Y: "lat",
     Category: "category"
   };
 
