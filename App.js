@@ -1,23 +1,57 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import { MapView } from 'expo';
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true
+    };
+  }
+
   render() {
-    return (
-      <View style={styles.container}>
-        <Text>Smooth</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    );
+    setTimeout(() => {
+      this.setState({loading: false});
+    }, 3000);
+
+    if (this.state.loading) {
+      return (
+        <View style={styles.container}>
+          <View style={styles.loadingScreen}>
+            <Image source={require('./images/smooth_animation.gif')}
+                   style={styles.animation} />
+          </View>
+        </View>
+      );
+    } else {
+      return (
+        <MapView
+        style={{ flex: 1 }}
+        initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      />
+      );
+    }
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#1D8DFF',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  loadingScreen: {
+    flex: 0.1,
+    paddingBottom: 50
+  },
+  animation: {
+    flex: 1,
   },
 });
