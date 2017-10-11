@@ -95,6 +95,7 @@ roads.forEach((road, i) => {
   roads[i]["crimesIds"] = roadCrimes.map(crime => crime.id);
   const crimeRating = crimeRoadsUtil.calcCrimeRating(roadCrimes);
   roads[i]["totalCrimeRating"] = crimeRating;
+  roads[i]["distance"] = crimeRoadsUtil.distance(i1Pos, i2Pos);
   if (crimeRating) crimeTotal += crimeRating;
 });
 
