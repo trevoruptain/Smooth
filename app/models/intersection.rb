@@ -31,7 +31,8 @@ class Intersection < ApplicationRecord
   has_many :intersection_froms,
     through: :roads_from
 
-  def intersections 
+  def siblings
     self.intersection_tos + self.intersection_froms
   end
+
 end

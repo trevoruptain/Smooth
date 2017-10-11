@@ -30,11 +30,13 @@ ActiveRecord::Schema.define(version: 20171009174653) do
     t.integer "intersection1_id", null: false
     t.integer "intersection2_id", null: false
     t.string "street_name"
-    t.integer "safety_rating", null: false
+    t.string "nearby_crimes_ids"
+    t.integer "total_crime_rating", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["intersection1_id", "intersection2_id"], name: "index_roads_on_intersection1_id_and_intersection2_id", unique: true
-    t.index ["street_name"], name: "index_roads_on_street_name"
+    t.index ["intersection1_id"], name: "index_roads_on_intersection1_id"
+    t.index ["intersection2_id"], name: "index_roads_on_intersection2_id"
   end
 
 end
