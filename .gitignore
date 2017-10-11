@@ -15,4 +15,4 @@ npm-debug.*
 
 .byebug_history
 
-data/lib/key.js
+/road_network_datadata/lib/key.js

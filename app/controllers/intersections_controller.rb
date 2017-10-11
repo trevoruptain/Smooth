@@ -1,0 +1,2 @@
+class IntersectionsController < ApplicationController
+end
