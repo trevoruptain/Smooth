@@ -6,6 +6,7 @@ class CreateRoads < ActiveRecord::Migration[5.1]
       t.string :street_name
       t.string :nearby_crimes_ids
       t.integer :total_crime_rating, null: false
+      t.float :distance, null: false
       t.timestamps
     end
 
