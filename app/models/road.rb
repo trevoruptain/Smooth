@@ -21,4 +21,5 @@ class Road < ApplicationRecord
     primary_key: :id,
     foreign_key: :intersection2_id,
     class_name: :Intersection
+
 end

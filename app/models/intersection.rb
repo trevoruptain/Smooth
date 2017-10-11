@@ -31,7 +31,14 @@ class Intersection < ApplicationRecord
   has_many :intersection_froms,
     through: :roads_from
 
-  def intersections 
+  def children
     self.intersection_tos + self.intersection_froms
   end
+
+  # def road_nodes
+  #   roads = self.roads
+  #   return roads.join("roads on roads.intersection1_id = intersections.id").where("id != #{self.id}")
+  #   +
+  #   roads.join("roads on roads.intersection2_id = intersections.id").where("id != #{self.id}")
+  # end
 end
