@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20171009174653) do
     t.string "street_name"
     t.string "nearby_crimes_ids"
     t.integer "total_crime_rating", null: false
+    t.float "distance", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["intersection1_id", "intersection2_id"], name: "index_roads_on_intersection1_id_and_intersection2_id", unique: true
