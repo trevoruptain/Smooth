@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Dimensions } from 'react-native';
 import { MapView } from 'expo';
 
 export default class App extends React.Component {
@@ -44,19 +44,25 @@ export default class App extends React.Component {
       );
     } else {
       return (
-        <MapView
-        style={{ flex: 1 }}
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      />
+        <View style={styles.test}>
+          
+          <MapView
+            style={styles.map}
+            initialRegion={{
+              latitude: 37.78825,
+              longitude: -122.4324,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+          />
+          <TextInput style={styles.directionInput}/>
+        </View>
       );
     }
   }
 }
+
+var width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {
@@ -64,6 +70,29 @@ const styles = StyleSheet.create({
     backgroundColor: '#1D8DFF',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  test: {
+    flex: 1,
+    backgroundColor: 'lightblue',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  map: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  directionInput: {
+    width: width * 0.92,
+    height: 55,
+    borderRadius: 1,
+    position: 'absolute',
+    top: 65,
+    backgroundColor: 'white',
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   loadingScreen: {
     flex: 0.1,
