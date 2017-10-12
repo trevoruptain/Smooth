@@ -24,6 +24,6 @@ https.get(
 
 
 setTimeout(() => {
-    console.log(JSON.parse(outsideData).routes[0].legs);
+    console.log(JSON.parse(outsideData).routes[0].legs[0].steps);
 }, 5000);
 
