@@ -53,7 +53,7 @@ class Intersection < ApplicationRecord
   def self.find_route(start_id, end_id, user_prefs)
     start_node = Intersection.find(start_id)
     start_node.weight = 0
-    nodes_arr = Intersection.includes(:roads_to).includes(:roads_from)
+    nodes_arr = Intersection.includes(:roads_to, :roads_from)
     all_nodes = self.nodes_to_obj(nodes_arr)
     seen = [start_node]
     visited = []
@@ -67,16 +67,12 @@ class Intersection < ApplicationRecord
         next_id = road.intersection1_id == current_node.id ? road.intersection2_id : road.intersection1_id
         next_node = all_nodes[next_id]
 
-        p current_node
-        p next_node
-
         current_road = Road.map_user_prefs(road, current_node.elevation, next_node.elevation, user_prefs)
         new_weight = current_node.weight + road.weight
 
-          if !seen.include?(next_node)
+          if !seen.include?(next_node) && !visited.include?(next_node)
             next_node.weight = new_weight 
             next_node.node_from_id = current_node.id
-
             if seen.empty?
               seen.push(next_node)
             else
@@ -100,13 +96,13 @@ class Intersection < ApplicationRecord
     current = visited.last
     path = []
 
-    until current.node_from_id == nil
+    loop do
       path.unshift(current.id)
       current = all_nodes[current.node_from_id]
+      break if current.node_from_id == nil
     end
 
+    print path
     path
-
-    
   end
 end
