@@ -11,6 +11,13 @@
 #
 
 class Intersection < ApplicationRecord
+  attr_accessor :node_from_id
+  attr_writer :weight
+
+  def weight
+    @weight || Float::INFINITY
+  end
+
   has_many :roads_to,
     primary_key: :id,
     foreign_key: :intersection1_id,
@@ -22,7 +29,7 @@ class Intersection < ApplicationRecord
     class_name: :Road
 
   def roads
-    self.roads_to + self.roads_from
+    roads_to + roads_from
   end
 
   has_many :intersection_tos,
@@ -32,10 +39,10 @@ class Intersection < ApplicationRecord
     through: :roads_from
 
   def siblings
-    self.intersection_tos + self.intersection_froms
+    intersection_tos.all + intersection_froms.all
   end
 
-  def nodes_to_obj(nodes)
+  def self.nodes_to_obj(nodes)
     nodes_hash = {}
     nodes.each do |node|
       nodes_hash[node.id] = node
@@ -43,51 +50,59 @@ class Intersection < ApplicationRecord
     nodes_hash
   end
 
-  def find_route(start_id, end_id, user_prefs)
+  def self.find_route(start_id, end_id, user_prefs)
     start_node = Intersection.find(start_id)
-    nodes_arr = Intersection.includes(:roads)
-    all_nodes = nodes_to_obj(nodes_arr)
+    start_node.weight = 0
+    nodes_arr = Intersection.includes(:roads_to, :roads_from)
+    all_nodes = self.nodes_to_obj(nodes_arr)
     seen = [start_node]
     visited = []
 
     loop do
       current_node = seen.shift
       visited.push(current_node)
-
       break if current_node.id == end_id
 
-      current_node.roads.each do |road|
+      current_node.roads.each_with_index do |road, i|
         next_id = road.intersection1_id == current_node.id ? road.intersection2_id : road.intersection1_id
         next_node = all_nodes[next_id]
 
-        road = Road.map_user_prefs(road, current_node.elevation, next_node.elevation, user_prefs)
+        current_road = Road.map_user_prefs(road, current_node.elevation, next_node.elevation, user_prefs)
         new_weight = current_node.weight + road.weight
 
-        if !seen.includes(next_node)
-          next_node[:weight] = new_weight 
-          next_node[:node_from_id] = current_node.id
-
-          seen.each_with_index do |node, i|
-            if node.weight > next_node.weight
-              seen.insert(next_node, i)
-              break
+          if !seen.include?(next_node) && !visited.include?(next_node)
+            next_node.weight = new_weight 
+            next_node.node_from_id = current_node.id
+            if seen.empty?
+              seen.push(next_node)
+            else
+              seen.each_with_index do |node, i|
+                if node.weight > next_node.weight
+                  seen.insert(i, next_node)
+                  break
+                elsif (i == seen.length - 1)
+                  seen.push(next_node)
+                  break
+                end
+              end
             end
+          elsif !visited.include?(next_node) && new_weight < next_node.weight
+            next_node.weight = new_weight
+            next_node.node_from_id = current_node.id
           end
-        elsif !visited.includes(next_node) && new_weight < next_node.weight 
-          next_node[:weight] = new_weight
-          next_node[:node_from_id] = current_node.id
-        end
       end
     end
 
     current = visited.last
     path = []
 
-    until current.node_from_id == nil
+    loop do
       path.unshift(current.id)
       current = all_nodes[current.node_from_id]
+      break if current.node_from_id == nil
     end
 
+    print path
     path
   end
 end
