@@ -1,9 +1,10 @@
-const key = require("./key");
+const keys = require("./key");
+const directionsKey = keys.directionsKey;
 let fs = require("fs");
 let path = require("path");
-let nodes = require(path.join(__dirname, "..", "data", "nodes.json"));
+let nodes = require(path.join(__dirname, "..", "data/raw", "SOME_FILE.json"));
 
-const intersectionsPath = path.join(
+const remaining = path.join(
   __dirname,
   "..",
   "data/processed",
@@ -16,15 +17,17 @@ const callElevationAPI = function(nodes) {
     // const id = node.id;
     const lat = node.latitude;
     const long = node.longitude;
+    console.log(node)
 
     locationsArr.push(`${lat},${long}`);
   });
 
   const locations = locationsArr.join("|");
+  console.log(locations.slice(0, 10))
 
   const https = require("https");
   https.get(
-    `https://maps.googleapis.com/maps/api/elevation/json?locations=${locations}&key=${key}`,
+    `https://maps.googleapis.com/maps/api/elevation/json?locations=${locations}&key=${directionsKey}`,
     function(res) {
       // console.log("STATUS: " + res.statusCode);
       // console.log("HEADERS: " + JSON.stringify(res.headers));
@@ -35,7 +38,7 @@ const callElevationAPI = function(nodes) {
       });
       res.on("end", () => {
         try {
-          fs.appendFile(intersectionsPath, rawData, function(err) {
+          fs.appendFile(remaining, rawData, function(err) {
             if (err) {
               console.log(err);
             }
@@ -48,14 +51,14 @@ const callElevationAPI = function(nodes) {
   );
 };
 
-while (nodes.length > 29000) {
-  let nodesSubset = [];
-  while (nodesSubset.length <= 300) {
-    if (nodes.length === 0) {
-      break;
-    }
-    nodesSubset.push(nodes.shift());
-  }
-  callElevationAPI(nodesSubset);
-  nodesSubset = [];
-}
+// while (nodes.length > 29000) {
+//   let nodesSubset = [];
+//   while (nodesSubset.length <= 300) {
+//     if (nodes.length === 0) {
+//       break;
+//     }
+//     nodesSubset.push(nodes.shift());
+//   }
+//   callElevationAPI(nodesSubset);
+//   nodesSubset = [];
+// }
