@@ -45,7 +45,6 @@ export default class App extends React.Component {
     } else {
       return (
         <View style={styles.test}>
-          
           <MapView
             style={styles.map}
             initialRegion={{
@@ -55,7 +54,11 @@ export default class App extends React.Component {
               longitudeDelta: 0.0421,
             }}
           />
-          <TextInput style={styles.directionInput}/>
+          <View style={styles.searchBox}>
+            <View style={{ width: buttonWidth, height: 55, backgroundColor: 'blue'}} />
+            <TextInput style={styles.directionInput}/>
+            <View style={{ width: buttonWidth, height: 55, backgroundColor: 'blue'}} />
+          </View>
         </View>
       );
     }
@@ -63,6 +66,9 @@ export default class App extends React.Component {
 }
 
 var width = Dimensions.get('window').width;
+var searchBoxWidth = width * .92;
+var inputWidth = width * 0.62;
+var buttonWidth = (searchBoxWidth - inputWidth) / 2;
 
 const styles = StyleSheet.create({
   container: {
@@ -84,15 +90,24 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
-  directionInput: {
-    width: width * 0.92,
+  searchBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: searchBoxWidth,
     height: 55,
-    borderRadius: 1,
+    borderRadius: 3,
     position: 'absolute',
     top: 65,
     backgroundColor: 'white',
-    paddingLeft: 20,
-    paddingRight: 20,
+
+  },
+  directionInput: {
+    width: inputWidth,
+    height: 55,
+    borderWidth: 1,
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   loadingScreen: {
     flex: 0.1,
