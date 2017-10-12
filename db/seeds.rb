@@ -34,7 +34,7 @@ roads.each do |road|
       total_crime_rating: total_crime_rating,
       distance: road["distance"])
   rescue
-    puts "-----------------"
+    puts "------------------"
     puts road["id"]
     puts road["intersection1_id"]
     puts road["intersection2_id"]
