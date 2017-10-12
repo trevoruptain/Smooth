@@ -17,7 +17,7 @@ const callElevationAPI = function(nodes) {
     // const id = node.id;
     const lat = node.latitude;
     const long = node.longitude;
-    console.log(node)
+    console.log(node);
 
     locationsArr.push(`${lat},${long}`);
   });
@@ -51,14 +51,14 @@ const callElevationAPI = function(nodes) {
   );
 };
 
-// while (nodes.length > 29000) {
-//   let nodesSubset = [];
-//   while (nodesSubset.length <= 300) {
-//     if (nodes.length === 0) {
-//       break;
-//     }
-//     nodesSubset.push(nodes.shift());
-//   }
-//   callElevationAPI(nodesSubset);
-//   nodesSubset = [];
-// }
+while (nodes.length > 0) {
+  let nodesSubset = [];
+  while (nodesSubset.length <= 300) {
+    if (nodes.length === 0) {
+      break;
+    }
+    nodesSubset.push(nodes.shift());
+  }
+  callElevationAPI(nodesSubset);
+  nodesSubset = [];
+}

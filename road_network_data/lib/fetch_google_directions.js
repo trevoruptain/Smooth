@@ -2,8 +2,9 @@ const keys = require('./key');
 const directionsKey = keys.directionsKey;
 
 const https = require('https');
-let outsideData = "";
-const req = https.get(
+let outsideData = null;
+
+https.get(
     `https://maps.googleapis.com/maps/api/directions/json?origin=Toronto&destination=Montreal&key=${directionsKey}`,
     function(res) {
         console.log('STATUS: ' + res.statusCode);
@@ -21,4 +22,8 @@ const req = https.get(
     }
 );
 
-console.log(req);
+
+setTimeout(() => {
+    console.log(JSON.parse(outsideData).routes[0].legs);
+}, 5000);
+
