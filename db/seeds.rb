@@ -16,15 +16,14 @@ intersections.each do |intersection|
   begin
     Intersection.create(id: intersection["id"], lat: intersection["location"]["lat"], lng: intersection["location"]["lng"], elevation: intersection["elevation"])
   rescue
-    # puts intersection
+    puts intersection
   end
 end
 
 
 roadsFile = File.read(File.expand_path('road_network_data/data/processed/roads.json'))
 roads = JSON.parse(roadsFile)
-# puts roads[0]
-# puts roads.length
+
 roads.each do |road|
   begin
     total_crime_rating = road["totalCrimeRating"] ? road["totalCrimeRating"] : 0
@@ -35,9 +34,9 @@ roads.each do |road|
       total_crime_rating: total_crime_rating,
       distance: road["distance"])
   rescue
-    # puts "-----------------"
-    # puts road["id"]
-    # puts road["intersection1_id"]
-    # puts road["intersection2_id"]
+    puts "-----------------"
+    puts road["id"]
+    puts road["intersection1_id"]
+    puts road["intersection2_id"]
   end
 end
