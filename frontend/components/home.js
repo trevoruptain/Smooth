@@ -1,3 +1,7 @@
+// Menu icon thanks to <div>Icons made by <a href="https://www.flaticon.com/authors/cole-bemis" title="Cole Bemis">Cole Bemis</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+// Menu from <a href="https://icons8.com">Icon pack by Icons8</a>
+// Sliders from <a href="https://icons8.com">Icon pack by Icons8</a>
+
 import React from "react";
 import {
   StyleSheet,
@@ -54,7 +58,7 @@ export default class Home extends React.Component {
   render() {
     setTimeout(() => {
       this.setState({ loading: false });
-    }, 3000);
+    }, 1000);
 
     if (this.state.loading) {
       return this.loadingScreen();
@@ -73,11 +77,20 @@ export default class Home extends React.Component {
           />
 
           <View style={styles.searchBox}>
-            <View style={{ width: buttonWidth, height: 55, backgroundColor: 'blue'}} />
+            <View style={styles.button}>
+              <Image
+                source={require('../images/blue_menu_icon.png')}
+                style={{width: 25, height: 27}}
+                />
+            </View>
             <TextInput style={styles.directionInput}/>
-            <View style={{ width: buttonWidth, height: 55, backgroundColor: 'blue'}} />
+            <View style={styles.button}>
+              <Image
+                source={require('../images/blue_sliders.png')}
+                style={{ width: 25, height: 30 }}
+              />
+             </View>
           </View>
-          <TextInput style={styles.directionInput} />
         </View>
       );
     }
@@ -124,35 +137,23 @@ const styles = StyleSheet.create({
   directionInput: {
     width: inputWidth,
     height: 55,
-    borderWidth: 1,
+    // borderWidth: 1,
     marginLeft: 'auto',
     marginRight: 'auto',
-    backgroundColor: "#1D8DFF",
-    alignItems: "center",
-    justifyContent: "center"
+    backgroundColor: "white",
+  },
+  button: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: buttonWidth,
+    height: 55,
   },
   test: {
     flex: 1,
     backgroundColor: "lightblue",
     alignItems: "center",
     justifyContent: "center"
-  },
-  map: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0
-  },
-  directionInput: {
-    width: width * 0.92,
-    height: 55,
-    borderRadius: 1,
-    position: "absolute",
-    top: 65,
-    backgroundColor: "white",
-    paddingLeft: 20,
-    paddingRight: 20
   },
   loadingScreen: {
     flex: 0.1,
