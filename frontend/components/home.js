@@ -69,7 +69,11 @@ export default class Home extends React.Component {
               longitudeDelta: 0.0421
             }}
           />
-          <TextInput style={styles.directionInput} />
+          <View style={styles.searchBox}>
+            <View style={{ width: buttonWidth, height: 55, backgroundColor: 'blue'}} />
+            <TextInput style={styles.directionInput}/>
+            <View style={{ width: buttonWidth, height: 55, backgroundColor: 'blue'}} />
+          </View>
         </View>
       );
     }
@@ -77,42 +81,55 @@ export default class Home extends React.Component {
 }
 
 var width = Dimensions.get("window").width;
+var searchBoxWidth = width * .92;
+var inputWidth = width * 0.62;
+var buttonWidth = (searchBoxWidth - inputWidth) / 2;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1D8DFF",
-    alignItems: "center",
-    justifyContent: "center"
+    backgroundColor: '#1D8DFF',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   test: {
     flex: 1,
-    backgroundColor: "lightblue",
-    alignItems: "center",
-    justifyContent: "center"
+    backgroundColor: 'lightblue',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   map: {
-    position: "absolute",
+    position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
-    bottom: 0
+    bottom: 0,
+  },
+  searchBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: searchBoxWidth,
+    height: 55,
+    borderRadius: 3,
+    position: 'absolute',
+    top: 65,
+    backgroundColor: 'white',
+
   },
   directionInput: {
-    width: width * 0.92,
+    width: inputWidth,
     height: 55,
-    borderRadius: 1,
-    position: "absolute",
-    top: 65,
-    backgroundColor: "white",
-    paddingLeft: 20,
-    paddingRight: 20
+    borderWidth: 1,
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   loadingScreen: {
     flex: 0.1,
     paddingBottom: 50
   },
   animation: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });
+
