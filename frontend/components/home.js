@@ -1,4 +1,3 @@
-// Menu icon thanks to <div>Icons made by <a href="https://www.flaticon.com/authors/cole-bemis" title="Cole Bemis">Cole Bemis</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 // Menu from <a href="https://icons8.com">Icon pack by Icons8</a>
 // Sliders from <a href="https://icons8.com">Icon pack by Icons8</a>
 
@@ -8,51 +7,45 @@ import {
   Text,
   View,
   Image,
+  Button,
+  Alert,
   TextInput,
   Dimensions
 } from "react-native";
 import { MapView, Polyline } from "expo";
 import Menu from "./menu/menu";
+import SplashLoading from "./loading_screens/splash_loading";
 
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true
+      loading: true,
+      destinationText: '',
+      defaultStart: '825 Battery Street, San Francisco, CA'
     };
   }
 
   async getDirections(startLoc, destinationLoc) {
     try {
+      Alert.alert(this.state.destinationText);
       let resp = await fetch(
         `https://maps.googleapis.com/maps/api/directions/json?origin=${startLoc}&destination=${destinationLoc}`
       );
       let respJson = await resp.json();
       let points = Polyline.decode(respJson.routes[0].overview_polyline.points);
       let coords = points.map((point, index) => {
+        Alert.alert(point[0], point[1])
         return {
           latitude: point[0],
           longitude: point[1]
         };
       });
       this.setState({ coords: coords });
-      return coords;
-    } catch (error) {
-      return error;
+      return coords
+      } catch (error) {
+        return error;
     }
-  }
-
-  loadingScreen() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.loadingScreen}>
-          <Image
-            source={require("../images/smooth_animation.gif")}
-            style={styles.animation}
-          />
-        </View>
-      </View>
-    );
   }
 
   render() {
@@ -61,7 +54,7 @@ export default class Home extends React.Component {
     }, 1000);
 
     if (this.state.loading) {
-      return this.loadingScreen();
+      return <SplashLoading />;
     } else {
       return (
         <View style={styles.test}>
@@ -83,7 +76,10 @@ export default class Home extends React.Component {
                 style={{width: 25, height: 27}}
                 />
             </View>
-            <TextInput style={styles.directionInput}/>
+              <TextInput
+                style={styles.directionInput}
+                onChangeText={(destinationText) => this.setState({destinationText})}
+                onSubmitEditing={() => {this.getDirections(this.state.defaultStart, this.state.destinationText)}}/>
             <View style={styles.button}>
               <Image
                 source={require('../images/blue_sliders.png')}
@@ -103,12 +99,6 @@ var inputWidth = width * 0.62;
 var buttonWidth = (searchBoxWidth - inputWidth) / 2;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#1D8DFF',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   test: {
     flex: 1,
     backgroundColor: 'lightblue',
@@ -148,18 +138,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: buttonWidth,
     height: 55,
-  },
-  test: {
-    flex: 1,
-    backgroundColor: "lightblue",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  loadingScreen: {
-    flex: 0.1,
-    paddingBottom: 50
-  },
-  animation: {
-    flex: 1,
-  },
+  }
 });
