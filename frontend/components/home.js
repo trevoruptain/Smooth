@@ -8,6 +8,7 @@ import {
   Dimensions
 } from "react-native";
 import { MapView, Polyline } from "expo";
+import Menu from "./menu/menu";
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -60,6 +61,7 @@ export default class Home extends React.Component {
     } else {
       return (
         <View style={styles.test}>
+          <Menu />
           <MapView
             style={styles.map}
             initialRegion={{
