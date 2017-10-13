@@ -1,19 +1,19 @@
 dependencies: \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/Libraries/NativeAnimation/Drivers/RCTSpringAnimation.m \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/Libraries/NativeAnimation/Drivers/RCTSpringAnimation.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/Libraries/NativeAnimation/Drivers/RCTAnimationDriver.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTConvert.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAnimationType.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBorderStyle.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTLog.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTPointerEvents.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTTextDecorationLineType.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTValueAnimatedNode.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTAnimatedNode.h
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/Libraries/NativeAnimation/Drivers/RCTSpringAnimation.m \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/Libraries/NativeAnimation/Drivers/RCTSpringAnimation.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/Libraries/NativeAnimation/Drivers/RCTAnimationDriver.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTConvert.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAnimationType.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBorderStyle.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTLog.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTPointerEvents.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTTextDecorationLineType.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTValueAnimatedNode.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTAnimatedNode.h

@@ -1,13 +1,13 @@
 dependencies: \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/Libraries/Text/RCTUITextField.m \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/Libraries/Text/RCTUITextField.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/Libraries/Text/RCTBackedTextInputViewProtocol.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/UIView+React.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTComponent.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/Libraries/Text/RCTBackedTextInputDelegateAdapter.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/Libraries/Text/RCTBackedTextInputDelegate.h
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/Libraries/Text/RCTUITextField.m \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/Libraries/Text/RCTUITextField.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/Libraries/Text/RCTBackedTextInputViewProtocol.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/UIView+React.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTComponent.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/Libraries/Text/RCTBackedTextInputDelegateAdapter.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/Libraries/Text/RCTBackedTextInputDelegate.h

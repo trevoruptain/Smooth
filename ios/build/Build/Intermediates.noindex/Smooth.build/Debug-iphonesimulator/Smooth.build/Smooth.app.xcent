@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>application-identifier</key>
-	<string>Apple Software.org.reactjs.native.example.Smooth</string>
+	<string>FAKETEAMID.org.reactjs.native.example.Smooth</string>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>Apple Software.org.reactjs.native.example.Smooth</string>
+		<string>FAKETEAMID.org.reactjs.native.example.Smooth</string>
 	</array>
 </dict>
 </plist>

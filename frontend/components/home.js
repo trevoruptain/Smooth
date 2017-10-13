@@ -12,7 +12,8 @@ import {
   TextInput,
   Dimensions
 } from "react-native";
-import { MapView, Polyline } from "expo";
+import MapView from 'react-native-maps';
+// var Polyline = require('@mapbox/polyline');
 import Menu from "./menu/menu";
 import SplashLoading from "./loading_screens/splash_loading";
 
@@ -26,27 +27,27 @@ export default class Home extends React.Component {
     };
   }
 
-  async getDirections(startLoc, destinationLoc) {
-    try {
-      Alert.alert(this.state.destinationText);
-      let resp = await fetch(
-        `https://maps.googleapis.com/maps/api/directions/json?origin=${startLoc}&destination=${destinationLoc}`
-      );
-      let respJson = await resp.json();
-      let points = Polyline.decode(respJson.routes[0].overview_polyline.points);
-      let coords = points.map((point, index) => {
-        Alert.alert(point[0], point[1])
-        return {
-          latitude: point[0],
-          longitude: point[1]
-        };
-      });
-      this.setState({ coords: coords });
-      return coords
-      } catch (error) {
-        return error;
-    }
-  }
+  // async getDirections(startLoc, destinationLoc) {
+  //   try {
+  //     Alert.alert(this.state.destinationText);
+  //     let resp = await fetch(
+  //       `https://maps.googleapis.com/maps/api/directions/json?origin=${startLoc}&destination=${destinationLoc}`
+  //     );
+  //     let respJson = await resp.json();
+  //     let points = Polyline.decode(respJson.routes[0].overview_polyline.points);
+  //     let coords = points.map((point, index) => {
+  //       Alert.alert(point[0], point[1])
+  //       return {
+  //         latitude: point[0],
+  //         longitude: point[1]
+  //       };
+  //     });
+  //     this.setState({ coords: coords });
+  //     return coords
+  //     } catch (error) {
+  //       return error;
+  //   }
+  // }
 
   render() {
     setTimeout(() => {

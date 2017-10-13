@@ -1,22 +1,22 @@
 dependencies: \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Modules/RCTDevSettings.mm \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Modules/RCTDevSettings.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTBridge.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTBridgeDelegate.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTJavaScriptLoader.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTDefines.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTBridgeModule.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTFrameUpdate.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTInvalidating.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/JavaScriptCore.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/JSCWrapper.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTBridge+Private.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTEventDispatcher.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Modules/RCTJSCSamplingProfiler.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTJSEnvironment.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTLog.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTAssert.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTUtils.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Profiler/RCTProfile.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/DevSupport/RCTPackagerConnection.h \
-  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/DevSupport/RCTInspectorDevServerHelper.h
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/React/Modules/RCTDevSettings.mm \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/React/Modules/RCTDevSettings.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/React/Base/RCTBridge.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/React/Base/RCTBridgeDelegate.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/React/Base/RCTJavaScriptLoader.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/React/Base/RCTDefines.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/React/Base/RCTBridgeModule.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/React/Base/RCTFrameUpdate.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/React/Base/RCTInvalidating.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/JavaScriptCore.h \
+  /Users/trevoruptain/Desktop/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/JSCWrapper.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/React/Base/RCTBridge+Private.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/React/Base/RCTEventDispatcher.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/React/Modules/RCTJSCSamplingProfiler.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/React/Base/RCTJSEnvironment.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/React/Base/RCTLog.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/React/Base/RCTAssert.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/React/Base/RCTUtils.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/React/Profiler/RCTProfile.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/React/DevSupport/RCTPackagerConnection.h \
+  /Users/trevoruptain/Desktop/Smooth/node_modules/react-native/React/DevSupport/RCTInspectorDevServerHelper.h
