@@ -1,0 +1,29 @@
+dependencies: \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/DevSupport/RCTPackagerConnection.m \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/DevSupport/RCTPackagerConnection.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTDefines.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTAssert.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTBridge.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTBridgeDelegate.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTJavaScriptLoader.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTBridgeModule.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTFrameUpdate.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTInvalidating.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTConvert.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Views/RCTAnimationType.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Views/RCTBorderStyle.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTLog.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Base/RCTUtils.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Views/RCTPointerEvents.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/Views/RCTTextDecorationLineType.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/../Libraries/WebSocket/RCTReconnectingWebSocket.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/../Libraries/WebSocket/RCTSRWebSocket.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/../Libraries/WebSocket/RCTWebSocketObserver.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/DevSupport/RCTPackagerConnectionBridgeConfig.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/DevSupport/RCTPackagerConnectionConfig.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/DevSupport/RCTReloadPackagerMethod.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/DevSupport/RCTPackagerClient.h \
+  /Users/lexluther/Documents/aa_projects/Smooth/node_modules/react-native/React/DevSupport/RCTSamplingProfilerPackagerMethod.h
