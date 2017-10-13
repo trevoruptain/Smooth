@@ -8,6 +8,7 @@ import {
   Dimensions
 } from "react-native";
 import { MapView, Polyline } from "expo";
+import Menu from "./menu/menu";
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -60,6 +61,7 @@ export default class Home extends React.Component {
     } else {
       return (
         <View style={styles.test}>
+          <Menu />
           <MapView
             style={styles.map}
             initialRegion={{
@@ -69,11 +71,13 @@ export default class Home extends React.Component {
               longitudeDelta: 0.0421
             }}
           />
+
           <View style={styles.searchBox}>
             <View style={{ width: buttonWidth, height: 55, backgroundColor: 'blue'}} />
             <TextInput style={styles.directionInput}/>
             <View style={{ width: buttonWidth, height: 55, backgroundColor: 'blue'}} />
           </View>
+          <TextInput style={styles.directionInput} />
         </View>
       );
     }
@@ -123,6 +127,32 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginLeft: 'auto',
     marginRight: 'auto',
+    backgroundColor: "#1D8DFF",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  test: {
+    flex: 1,
+    backgroundColor: "lightblue",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  map: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0
+  },
+  directionInput: {
+    width: width * 0.92,
+    height: 55,
+    borderRadius: 1,
+    position: "absolute",
+    top: 65,
+    backgroundColor: "white",
+    paddingLeft: 20,
+    paddingRight: 20
   },
   loadingScreen: {
     flex: 0.1,
@@ -132,4 +162,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-
