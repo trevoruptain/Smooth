@@ -11,6 +11,7 @@
 #
 
 class Intersection < ApplicationRecord
+  include IntersectionHelper
   attr_accessor :node_from_id
   attr_writer :weight
 
@@ -39,7 +40,7 @@ class Intersection < ApplicationRecord
     through: :roads_from
 
   def siblings
-    intersection_tos.all + intersection_froms.all
+    intersection_tos + intersection_froms
   end
 
   def self.nodes_to_obj(nodes)
@@ -50,10 +51,26 @@ class Intersection < ApplicationRecord
     nodes_hash
   end
 
+  # Intersection.find_route(1, 745, {distance:1})
+
   def self.find_route(start_id, end_id, user_prefs)
     start_node = Intersection.find(start_id)
+    end_node = Intersection.find(end_id) 
     start_node.weight = 0
-    nodes_arr = Intersection.includes(:roads_to, :roads_from)
+
+    mid = midpoint(start_node, end_node)
+    m_x = lng_to_meters(mid[:lng])
+    m_y = lat_to_meters(mid[:lat])
+    range = distance({x: lng_to_meters(mid[:lng]), y: lat_to_meters(mid[:lat])}, 
+                     {x: lng_to_meters(start_node.lng), y: lat_to_meters(start_node.lat)})
+
+    nodes_arr = Intersection.includes(:roads_to, :roads_from).select do |node|
+      n_x = lng_to_meters(node.lng)
+      n_y = lat_to_meters(node.lat)
+
+      distance({x: m_x, y: m_y}, {x: n_x, y: n_y}) < range + 15
+    end
+
     all_nodes = self.nodes_to_obj(nodes_arr)
     seen = [start_node]
     visited = []
@@ -66,31 +83,39 @@ class Intersection < ApplicationRecord
       current_node.roads.each_with_index do |road, i|
         next_id = road.intersection1_id == current_node.id ? road.intersection2_id : road.intersection1_id
         next_node = all_nodes[next_id]
+        next if next_node == nil
 
         current_road = Road.map_user_prefs(road, current_node.elevation, next_node.elevation, user_prefs)
         new_weight = current_node.weight + road.weight
+        if !seen.include?(next_node) && !visited.include?(next_node)
 
-          if !seen.include?(next_node) && !visited.include?(next_node)
-            next_node.weight = new_weight 
-            next_node.node_from_id = current_node.id
-            if seen.empty?
-              seen.push(next_node)
-            else
-              seen.each_with_index do |node, i|
-                if node.weight > next_node.weight
-                  seen.insert(i, next_node)
-                  break
-                elsif (i == seen.length - 1)
-                  seen.push(next_node)
-                  break
-                end
+          next_node.weight = new_weight 
+          next_node.node_from_id = current_node.id
+          if seen.empty?
+  
+            seen.push(next_node)
+          else
+  
+            seen.each_with_index do |node, i|
+              if node.weight > next_node.weight
+                seen.insert(i, next_node)
+                break
+              elsif (i == seen.length - 1)
+                seen.push(next_node)
+                break
               end
             end
-          elsif !visited.include?(next_node) && new_weight < next_node.weight
+          end
+        else
+          if !visited.include?(next_node) && new_weight < next_node.weight
             next_node.weight = new_weight
             next_node.node_from_id = current_node.id
           end
+
+        end
       end
+      
+      p seen.length
     end
 
     current = visited.last
@@ -102,7 +127,6 @@ class Intersection < ApplicationRecord
       break if current.node_from_id == nil
     end
 
-    print path
-    path
+    path.unshift(start_id)
   end
 end
