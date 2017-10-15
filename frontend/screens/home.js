@@ -17,24 +17,20 @@ import {
 import MapView from "react-native-maps";
 // var Polyline = require('@mapbox/polyline');
 import SplashLoading from "./loading_screens/splash_loading";
-import PreferencesTray from "./preferences/preferences_tray";
-
-// import { AsyncStorage } from "react-native";
-// AsyncStorage.setItem("testkey", "testvalue");
-// AsyncStorage.getItem("testkey").then(
-//   value => console.log(value),
-//   err => setItem("testkey", "testvalue")
-// );
+import PreferencesModal from './preferences/preferences_modal'
 
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       loading: true,
       optionsDisplayed: false,
       destinationText: "",
       defaultStart: "825 Battery Street, San Francisco, CA"
     };
+
+    this._toggleOptions = this._toggleOptions.bind(this);
   }
 
   static navigationOptions = {
@@ -101,14 +97,10 @@ export default class Home extends React.Component {
     }
   }
 
-  toggleOptions() {
-    this.setState({ optionsDisplayed: true });
+  _toggleOptions() {
+    let newOption = !this.state.optionsDisplayed;
+    this.setState({ optionsDisplayed: newOption })
   }
-
-  renderOptionsMenu() {
-    return <PreferencesTray />;
-  }
-
   render() {
     setTimeout(() => {
       this.setState({ loading: false });
@@ -119,7 +111,7 @@ export default class Home extends React.Component {
     } else {
       return (
         <View style={styles.test}>
-          {this.stateoptionsDisplayed ? this.renderOptionsMenu() : null}
+          {this.state.optionsDisplayed && <PreferencesModal toggle={ this._toggleOptions } />}
           <MapView
             style={styles.map}
             initialRegion={{
@@ -154,11 +146,11 @@ export default class Home extends React.Component {
                 );
               }}
             />
-            <TouchableOpacity
-              onPress={() => {
-                this.toggleOptions();
-              }}
-            >
+
+            <TouchableOpacity onPress={() => {
+              this._toggleOptions()
+            }}>
+
               <View style={styles.button}>
                 <Image
                   source={require("../images/blue_sliders.png")}
