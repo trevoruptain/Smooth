@@ -10,11 +10,11 @@ import {
   Button,
   Alert,
   TextInput,
-  Dimensions
+  Dimensions,
+  Link
 } from "react-native";
-import MapView from 'react-native-maps';
+import MapView from "react-native-maps";
 // var Polyline = require('@mapbox/polyline');
-import Menu from "./menu/menu";
 import SplashLoading from "./loading_screens/splash_loading";
 
 export default class Home extends React.Component {
@@ -22,44 +22,48 @@ export default class Home extends React.Component {
     super(props);
     this.state = {
       loading: true,
-      destinationText: '',
-      defaultStart: '825 Battery Street, San Francisco, CA'
+      destinationText: "",
+      defaultStart: "825 Battery Street, San Francisco, CA"
     };
   }
+
+  static navigationOptions = {
+    header: null
+  };
 
   fetchWaypoints(endLat, endLng) {
     // console.log('endLat', endLat)
     fetch(`/api/intersections`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Accept': 'application/json',
-        'Content-type': 'application/json'
+        Accept: "application/json",
+        "Content-type": "application/json"
       },
       body: JSON.stringify({
         lat: endLat,
         lng: endLng
       })
     })
-      .then( (resp) => resp.json())
-      .then( (respJson) => {
-        return respJson
-      })
-      // .catch( (e) => {
-      //   console.error(e)
-      // })
+      .then(resp => resp.json())
+      .then(respJson => {
+        return respJson;
+      });
+    // .catch( (e) => {
+    //   console.error(e)
+    // })
 
-      // .then(function(resp) {
-      //   if (resp.status == 200) {
-      //     return resp.json();
-      //   } else throw new Error('Trevor sucks, error on the API server');
-      // })
-      // .then(resp => {
-      //   console.debug(resp);
-      // })
-      // .catch(e => {
-      //   console.error(e);
-      // })
-  };
+    // .then(function(resp) {
+    //   if (resp.status == 200) {
+    //     return resp.json();
+    //   } else throw new Error('Trevor sucks, error on the API server');
+    // })
+    // .then(resp => {
+    //   console.debug(resp);
+    // })
+    // .catch(e => {
+    //   console.error(e);
+    // })
+  }
 
   async getDirections(startLoc, destinationLoc) {
     try {
@@ -71,7 +75,7 @@ export default class Home extends React.Component {
       const latNum = respJson.routes[0].legs[0].end_location.lat;
       const lngNum = respJson.routes[0].legs[0].end_location.lng;
       // Alert.alert((latNum).toString());
-      console.log(latNum);
+      // console.log(latNum);
 
       this.fetchWaypoints(latNum, lngNum);
 
@@ -83,9 +87,9 @@ export default class Home extends React.Component {
         };
       });
       this.setState({ coords: coords });
-      return coords
-      } catch (error) {
-        return error;
+      return coords;
+    } catch (error) {
+      return error;
     }
   }
 
@@ -99,7 +103,6 @@ export default class Home extends React.Component {
     } else {
       return (
         <View style={styles.test}>
-          <Menu />
           <MapView
             style={styles.map}
             initialRegion={{
@@ -112,21 +115,28 @@ export default class Home extends React.Component {
 
           <View style={styles.searchBox}>
             <View style={styles.button}>
-              <Image
-                source={require('../images/blue_menu_icon.png')}
-                style={{width: 25, height: 27}}
-                />
+              <Button
+                onPress={() => this.props.navigation.navigate("DrawerOpen")}
+                title="hamberger"
+              />
             </View>
-              <TextInput
-                style={styles.directionInput}
-                onChangeText={(destinationText) => this.setState({destinationText})}
-                onSubmitEditing={() => {this.getDirections(this.state.defaultStart, this.state.destinationText)}}/>
+            <TextInput
+              style={styles.directionInput}
+              onChangeText={destinationText =>
+                this.setState({ destinationText })}
+              onSubmitEditing={() => {
+                this.getDirections(
+                  this.state.defaultStart,
+                  this.state.destinationText
+                );
+              }}
+            />
             <View style={styles.button}>
               <Image
-                source={require('../images/blue_sliders.png')}
+                source={require("../images/blue_sliders.png")}
                 style={{ width: 25, height: 30 }}
               />
-             </View>
+            </View>
           </View>
         </View>
       );
@@ -135,49 +145,48 @@ export default class Home extends React.Component {
 }
 
 var width = Dimensions.get("window").width;
-var searchBoxWidth = width * .92;
+var searchBoxWidth = width * 0.92;
 var inputWidth = width * 0.62;
 var buttonWidth = (searchBoxWidth - inputWidth) / 2;
 
 const styles = StyleSheet.create({
   test: {
     flex: 1,
-    backgroundColor: 'lightblue',
-    alignItems: 'center',
-    justifyContent: 'center'
+    backgroundColor: "lightblue",
+    alignItems: "center",
+    justifyContent: "center"
   },
   map: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
-    bottom: 0,
+    bottom: 0
   },
   searchBox: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
     width: searchBoxWidth,
     height: 55,
     borderRadius: 3,
-    position: 'absolute',
+    position: "absolute",
     top: 65,
-    backgroundColor: 'white',
-
+    backgroundColor: "white"
   },
   directionInput: {
     width: inputWidth,
     height: 55,
     // borderWidth: 1,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    backgroundColor: "white",
+    marginLeft: "auto",
+    marginRight: "auto",
+    backgroundColor: "white"
   },
   button: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     width: buttonWidth,
-    height: 55,
+    height: 55
   }
 });
