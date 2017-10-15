@@ -28,7 +28,8 @@ export default class Home extends React.Component {
   }
 
   fetchWaypoints(endLat, endLng) {
-    // console.log('endLat', endLat)
+
+    console.log('endLat', endLat)
     fetch(`/api/intersections`, {
       method: 'POST',
       headers: {
@@ -36,17 +37,17 @@ export default class Home extends React.Component {
         'Content-type': 'application/json'
       },
       body: JSON.stringify({
-        lat: endLat,
-        lng: endLng
+        endLat: endLat,
+        endLng: endLng
       })
     })
-      .then( (resp) => resp.json())
-      .then( (respJson) => {
-        return respJson
-      })
-      // .catch( (e) => {
-      //   console.error(e)
+      .then( (resp) => console.log(resp))
+      // .then( (respJson) => {
+      //   return respJson
       // })
+      .catch( (e) => {
+        console.log(e)
+      })
 
       // .then(function(resp) {
       //   if (resp.status == 200) {
@@ -63,15 +64,13 @@ export default class Home extends React.Component {
 
   async getDirections(startLoc, destinationLoc) {
     try {
-      // Alert.alert(this.state.destinationText);
       let resp = await fetch(
         `https://maps.googleapis.com/maps/api/directions/json?origin=${startLoc}&destination=${destinationLoc}`
       );
       let respJson = await resp.json();
       const latNum = respJson.routes[0].legs[0].end_location.lat;
       const lngNum = respJson.routes[0].legs[0].end_location.lng;
-      // Alert.alert((latNum).toString());
-      console.log(latNum);
+      console.log(latNum, lngNum);
 
       this.fetchWaypoints(latNum, lngNum);
 
