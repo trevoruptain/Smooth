@@ -1,19 +1,22 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  Dimensions
-} from "react-native";
+import { Text, View, Image, Button } from "react-native";
 
 export default class Menu extends React.Component {
-  constructor() {
-    super();
-  }
-
   render() {
-    return <View />;
+    const { navigate } = this.props.navigation;
+    return (
+      <View>
+        <Text>HEADER WITH BIKE ICON</Text>
+        <Button
+          onPress={() => navigate("Preferences", {})}
+          title="Preferences"
+        />
+        <Button
+          onPress={() => navigate("RideOptions", {})}
+          title="Get a Ride"
+        />
+        <Button onPress={() => navigate("Help", {})} title="Help" />
+      </View>
+    );
   }
 }
