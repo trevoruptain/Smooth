@@ -52,4 +52,10 @@ buck-out/
 */fastlane/Preview.html
 */fastlane/screenshots
 
-/backend/road_network_data/lib/key.js
+
+
+
+# Ignore application configuration
+backend/config/application.yml
+
+backend/road_network_data/key
