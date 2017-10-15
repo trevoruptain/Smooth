@@ -56,6 +56,5 @@ buck-out/
 
 
 # Ignore application configuration
-backend/config/application.yml
 
 backend/road_network_data/key
