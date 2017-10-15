@@ -127,7 +127,6 @@ export default class Home extends React.Component {
     if (this.state.loading) {
       return <SplashLoading />;
     } else {
-      console.log(this.state.position);
       return (
         <View style={styles.test}>
           {this.state.optionsDisplayed && (

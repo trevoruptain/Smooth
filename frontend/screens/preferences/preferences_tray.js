@@ -1,5 +1,11 @@
 import React from "react";
-import { View, StyleSheet, Dimensions, Animated, Easing, Slider, Text, Link, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Dimensions, Animated, Easing, Slider, Text, Link, TouchableOpacity, AsyncStorage } from "react-native";
+
+// AsyncStorage.setItem(“testkey”, “testvalue”);
+// AsyncStorage.getItem(“testkey”).then(
+//   value => console.log(value),
+//   err => setItem(“testkey”, “testvalue”)
+// );
 
 class SlideInView extends React.Component {
     state = {
@@ -11,8 +17,7 @@ class SlideInView extends React.Component {
             this.state.yPosition,
             {
                 toValue: 0,
-                easing: Easing.front,
-                duration: 200,
+                duration: 700,
             }
         ).start();
     }
@@ -23,7 +28,7 @@ class SlideInView extends React.Component {
             {
                 toValue: -400,
                 easing: Easing.back,
-                duration: 200,
+                duration: 700,
             }
         ).start();
     }
@@ -57,18 +62,54 @@ export default class PreferencesTray extends React.Component {
         this.updateSafety = this.updateSafety.bind(this);
         this.updateFlatness = this.updateFlatness.bind(this);
         this.updateDistance = this.updateDistance.bind(this);
+        this.setDefault = this.setDefault.bind(this);
+    }
+
+    componentWillMount() {
+        AsyncStorage.getItem("preferences").then(preferences => {
+            if (preferences === null) {
+                AsyncStorage.setItem("preferences", JSON.stringify({
+                    safetyImportance: 0,
+                    flatnessImportance: 0,
+                    distanceImportance: 0
+                })).then(preferences => {
+                    console.log(preferences);
+                })
+            } else {
+                this.setState(JSON.parse(preferences));
+            }
+        });
+    }
+
+    setDefault() {
+        let safety = this.state.safetyImportance;
+        let flatness = this.state.flatnessImportance;
+        let distance = this.state.distanceImportance;
+
+        console.log(this.state);
+        console.log(distance);
+        console.log(flatness);
+
+       AsyncStorage.setItem("preferences", JSON.stringify({
+            safetyImportance: safety,
+            flatnessImportance: flatness,
+            distanceImportance: distance
+        })).then(preferences => {
+            console.log(preferences);
+        })
+
     }
 
     updateSafety(value) {
-        this.setState({safety: value});
+        this.setState({safetyImportance: value});
     }
 
     updateFlatness(value) {
-        this.setState({ flatness: value });
+        this.setState({ flatnessImportance: value });
     }
 
     updateDistance(value) {
-        this.setState({ distance: value });
+        this.setState({ distanceImportance: value });
     }
 
     importanceInt(value) {
@@ -115,7 +156,9 @@ export default class PreferencesTray extends React.Component {
                 </View>
 
                 <View style={styles.textHolder}>
-                    <Text style={styles.link}>Set Default</Text>
+                    <TouchableOpacity onPress={this.setDefault}>
+                        <Text style={styles.link}>Set Default</Text>
+                    </TouchableOpacity>
                     <TouchableOpacity onPress={this.props.toggle}>
                         <View>
                             <Text style={styles.link}>OK</Text>
