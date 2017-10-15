@@ -11,17 +11,20 @@ import {
   Alert,
   TextInput,
   Dimensions,
-  Link
+  Link,
+  TouchableOpacity
 } from "react-native";
 import MapView from "react-native-maps";
 // var Polyline = require('@mapbox/polyline');
 import SplashLoading from "./loading_screens/splash_loading";
+import PreferencesTray from './preferences/preferences_tray'
 
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
+      optionsDisplayed: false,
       destinationText: "",
       defaultStart: "825 Battery Street, San Francisco, CA"
     };
@@ -94,6 +97,14 @@ export default class Home extends React.Component {
     }
   }
 
+  toggleOptions() {
+    this.setState({ optionsDisplayed: true })
+  }
+
+  renderOptionsMenu() {
+    return <PreferencesTray />;
+  }
+ 
   render() {
     setTimeout(() => {
       this.setState({ loading: false });
@@ -104,6 +115,7 @@ export default class Home extends React.Component {
     } else {
       return (
         <View style={styles.test}>
+          {this.stateoptionsDisplayed ? this.renderOptionsMenu() : null}
           <MapView
             style={styles.map}
             initialRegion={{
@@ -115,12 +127,16 @@ export default class Home extends React.Component {
           />
 
           <View style={styles.searchBox}>
-            <View style={styles.button}>
-              <Button
-                onPress={() => this.props.navigation.navigate("DrawerOpen")}
-                title="hamberger"
-              />
-            </View>
+            <TouchableOpacity onPress={() => {
+              this.props.navigation.navigate("DrawerOpen")
+            }}>
+              <View style={styles.button}>
+                  <Image
+                    style={{ width: 25, height: 30 }}
+                    source={require("../images/blue_hamburger_icon.png")}
+                  />
+              </View>
+            </TouchableOpacity>
             <TextInput
               style={styles.directionInput}
               onChangeText={destinationText =>
@@ -132,12 +148,16 @@ export default class Home extends React.Component {
                 );
               }}
             />
-            <View style={styles.button}>
-              <Image
-                source={require("../images/blue_sliders.png")}
-                style={{ width: 25, height: 30 }}
-              />
-            </View>
+            <TouchableOpacity onPress={() => {
+              this.toggleOptions()
+            }}>
+              <View style={styles.button}>
+                <Image
+                  source={require("../images/blue_sliders.png")}
+                  style={{ width: 25, height: 30 }}
+                />
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
       );
