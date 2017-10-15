@@ -58,4 +58,4 @@ buck-out/
 # Ignore application configuration
 backend/config/application.yml
 
-backend/road_network_data/lib/key.js
+backend/road_network_data/key/key.js
