@@ -17,7 +17,7 @@ import {
 import MapView from "react-native-maps";
 // var Polyline = require('@mapbox/polyline');
 import SplashLoading from "./loading_screens/splash_loading";
-import PreferencesModal from './preferences/preferences_modal'
+import PreferencesModal from "./preferences/preferences_modal";
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -27,10 +27,27 @@ export default class Home extends React.Component {
       loading: true,
       optionsDisplayed: false,
       destinationText: "",
-      defaultStart: "825 Battery Street, San Francisco, CA"
+      position: { lat: 38, lng: -122.4 }
     };
 
+    this.retrieveLocationInterval = 3000;
+    this.setCurrLocation = this.setCurrLocation.bind(this);
     this._toggleOptions = this._toggleOptions.bind(this);
+  }
+
+  componentDidMount() {
+    this.setCurrLocation();
+    setInterval(() => {
+      this.setCurrLocation();
+    }, this.retrieveLocationInterval);
+  }
+
+  setCurrLocation() {
+    navigator.geolocation.getCurrentPosition(position => {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+      this.setState({ position: { lat, lng } });
+    });
   }
 
   static navigationOptions = {
@@ -72,6 +89,7 @@ export default class Home extends React.Component {
   }
 
   async getDirections(startLoc, destinationLoc) {
+    // if startLoc is position: {lat,lng} convert to '${lat},${lng}' string format
     try {
       let resp = await fetch(
         `https://maps.googleapis.com/maps/api/directions/json?origin=${startLoc}&destination=${destinationLoc}`
@@ -99,7 +117,7 @@ export default class Home extends React.Component {
 
   _toggleOptions() {
     let newOption = !this.state.optionsDisplayed;
-    this.setState({ optionsDisplayed: newOption })
+    this.setState({ optionsDisplayed: newOption });
   }
   render() {
     setTimeout(() => {
@@ -109,14 +127,17 @@ export default class Home extends React.Component {
     if (this.state.loading) {
       return <SplashLoading />;
     } else {
+      console.log(this.state.position);
       return (
         <View style={styles.test}>
-          {this.state.optionsDisplayed && <PreferencesModal toggle={ this._toggleOptions } />}
+          {this.state.optionsDisplayed && (
+            <PreferencesModal toggle={this._toggleOptions} />
+          )}
           <MapView
             style={styles.map}
             initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
+              latitude: this.state.position.lat,
+              longitude: this.state.position.lng,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421
             }}
@@ -147,10 +168,11 @@ export default class Home extends React.Component {
               }}
             />
 
-            <TouchableOpacity onPress={() => {
-              this._toggleOptions()
-            }}>
-
+            <TouchableOpacity
+              onPress={() => {
+                this._toggleOptions();
+              }}
+            >
               <View style={styles.button}>
                 <Image
                   source={require("../images/blue_sliders.png")}
