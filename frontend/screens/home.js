@@ -27,10 +27,10 @@ export default class Home extends React.Component {
       loading: true,
       optionsDisplayed: false,
       destinationText: "",
-      position: { lat: 38, lng: -122.4 }
+      currPosition: { lat: 38, lng: -122.4 }
     };
 
-    this.retrieveLocationInterval = 3000;
+    this.retrieveLocationInterval = 1000;
     this.setCurrLocation = this.setCurrLocation.bind(this);
     this._toggleOptions = this._toggleOptions.bind(this);
   }
@@ -46,7 +46,7 @@ export default class Home extends React.Component {
     navigator.geolocation.getCurrentPosition(position => {
       const lat = position.coords.latitude;
       const lng = position.coords.longitude;
-      this.setState({ position: { lat, lng } });
+      this.setState({ currPosition: { lat, lng } });
     });
   }
 
@@ -127,7 +127,6 @@ export default class Home extends React.Component {
     if (this.state.loading) {
       return <SplashLoading />;
     } else {
-      console.log(this.state.position);
       return (
         <View style={styles.test}>
           {this.state.optionsDisplayed && (
@@ -136,13 +135,20 @@ export default class Home extends React.Component {
           <MapView
             style={styles.map}
             initialRegion={{
-              latitude: this.state.position.lat,
-              longitude: this.state.position.lng,
+              latitude: this.state.currPosition.lat,
+              longitude: this.state.currPosition.lng,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421
             }}
-          />
-
+          >
+            <MapView.Marker
+              coordinate={{
+                latitude: this.state.currPosition.lat,
+                longitude: this.state.currPosition.lng
+              }}
+              image={require("../images/curr_loc_marker.png")}
+            />
+          </MapView>
           <View style={styles.searchBox}>
             <TouchableOpacity
               onPress={() => {
