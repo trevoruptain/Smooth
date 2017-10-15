@@ -1,4 +1,4 @@
-import Home from "./frontend/components/home";
+import Home from "./frontend/screens/home";
 import React, { Component } from "react";
 
 export default class App extends Component {
