@@ -38,8 +38,7 @@ export default class Home extends React.Component {
   };
 
   fetchWaypoints(endLat, endLng) {
-
-    console.log('endLat', endLat)
+    console.log("endLat", endLat);
     fetch(`/api/intersections`, {
       method: "POST",
       headers: {
@@ -51,14 +50,13 @@ export default class Home extends React.Component {
         endLng: endLng
       })
     })
-      .then( (resp) => console.log(resp))
+      .then(resp => console.log(resp))
       // .then( (respJson) => {
       //   return respJson
       // })
-      .catch( (e) => {
-        console.log(e)
-      })
-
+      .catch(e => {
+        console.log(e);
+      });
 
     // .then(function(resp) {
     //   if (resp.status == 200) {
@@ -83,7 +81,6 @@ export default class Home extends React.Component {
       const lngNum = respJson.routes[0].legs[0].end_location.lng;
       console.log(latNum, lngNum);
 
-
       this.fetchWaypoints(latNum, lngNum);
 
       let points = Polyline.decode(respJson.routes[0].overview_polyline.points);
@@ -104,7 +101,6 @@ export default class Home extends React.Component {
     let newOption = !this.state.optionsDisplayed;
     this.setState({ optionsDisplayed: newOption })
   }
-
   render() {
     setTimeout(() => {
       this.setState({ loading: false });
@@ -127,14 +123,16 @@ export default class Home extends React.Component {
           />
 
           <View style={styles.searchBox}>
-            <TouchableOpacity onPress={() => {
-              this.props.navigation.navigate("DrawerOpen")
-            }}>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate("DrawerOpen");
+              }}
+            >
               <View style={styles.button}>
-                  <Image
-                    style={{ width: 25, height: 30 }}
-                    source={require("../images/blue_hamburger_icon.png")}
-                  />
+                <Image
+                  style={{ width: 25, height: 30 }}
+                  source={require("../images/blue_hamburger_icon.png")}
+                />
               </View>
             </TouchableOpacity>
             <TextInput
@@ -148,9 +146,11 @@ export default class Home extends React.Component {
                 );
               }}
             />
+
             <TouchableOpacity onPress={() => {
               this._toggleOptions()
             }}>
+
               <View style={styles.button}>
                 <Image
                   source={require("../images/blue_sliders.png")}
