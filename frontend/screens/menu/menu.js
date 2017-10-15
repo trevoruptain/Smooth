@@ -1,12 +1,17 @@
 import React from "react";
-import { Text, View, Image, Button } from "react-native";
+import { Text, View, Image, Button, StyleSheet } from "react-native";
 
 export default class Menu extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
       <View>
-        <Text>HEADER WITH BIKE ICON</Text>
+        <View style={styles.header}>
+          <Image
+            style={styles.headerImage}
+            source={require("../../images/smooth_logo_menu.png")}
+          />
+        </View>
         <Button
           onPress={() => navigate("Preferences", {})}
           title="Preferences"
@@ -20,3 +25,13 @@ export default class Menu extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  header: {
+    paddingTop: 30,
+    paddingBottom: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#e2e2e2',
+  },
+});
