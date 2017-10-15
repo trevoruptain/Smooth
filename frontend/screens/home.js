@@ -27,6 +27,40 @@ export default class Home extends React.Component {
     };
   }
 
+  fetchWaypoints(endLat, endLng) {
+    // console.log('endLat', endLat)
+    fetch(`/api/intersections`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        lat: endLat,
+        lng: endLng
+      })
+    })
+      .then( (resp) => resp.json())
+      .then( (respJson) => {
+        return respJson
+      })
+      // .catch( (e) => {
+      //   console.error(e)
+      // })
+
+      // .then(function(resp) {
+      //   if (resp.status == 200) {
+      //     return resp.json();
+      //   } else throw new Error('Trevor sucks, error on the API server');
+      // })
+      // .then(resp => {
+      //   console.debug(resp);
+      // })
+      // .catch(e => {
+      //   console.error(e);
+      // })
+  };
+
   async getDirections(startLoc, destinationLoc) {
     try {
       // Alert.alert(this.state.destinationText);
@@ -36,8 +70,11 @@ export default class Home extends React.Component {
       let respJson = await resp.json();
       const latNum = respJson.routes[0].legs[0].end_location.lat;
       const lngNum = respJson.routes[0].legs[0].end_location.lng;
-      Alert.alert((latNum).toString());
-      // Alert.alert((respJson).routes[0].legs[0].end_location.lat);
+      // Alert.alert((latNum).toString());
+      console.log(latNum);
+
+      this.fetchWaypoints(latNum, lngNum);
+
       let points = Polyline.decode(respJson.routes[0].overview_polyline.points);
       let coords = points.map((point, index) => {
         return {
