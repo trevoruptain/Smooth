@@ -51,3 +51,5 @@ buck-out/
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
+
+/backend/road_network_data/lib/key.js
