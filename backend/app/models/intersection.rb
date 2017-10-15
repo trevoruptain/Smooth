@@ -53,6 +53,26 @@ class Intersection < ApplicationRecord
 
   # Intersection.find_route(1, 745, {distance:1})
 
+  def self.snap_position(lat, lng)
+    pos = { x: lng_to_meters(lng), y: lat_to_meters(lat)}
+    
+    nodes_arr = Intersection.all[0, 100]
+    closest_node = nil
+    min_distance = Float::INFINITY
+
+    nodes_arr.each do |node|
+      node_pos = {x: lng_to_meters(node[:lng]), y: lat_to_meters(node[:lat])}
+      distance = distance(pos, node_pos)
+      if distance < min_distance
+        closest_node = node
+        min_distance = distance
+      end
+    end
+
+    p min_distance
+    closest_node
+  end
+
   def self.find_route(start_id, end_id, user_prefs)
     start_node = Intersection.find(start_id)
     end_node = Intersection.find(end_id) 
