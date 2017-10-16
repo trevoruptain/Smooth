@@ -33,6 +33,8 @@ export default class Home extends React.Component {
     this.retrieveLocationInterval = 1000;
     this.setCurrLocation = this.setCurrLocation.bind(this);
     this._toggleOptions = this._toggleOptions.bind(this);
+
+    this.fetchWaypoints = this.fetchWaypoints.bind(this);
   }
 
   componentDidMount() {
@@ -55,7 +57,8 @@ export default class Home extends React.Component {
   };
 
   fetchWaypoints(startLat, startLng, endLat, endLng, userPrefs) {
-    fetch(`https://smooth.herokuapp.com/api/intersections?startLat=${startLat}&startLng=${startLng}&endLat=${endLat}&endLng=${endLng}`, {
+    console.log('made it into waypoints')
+    return fetch(`https://smooth.herokuapp.com/api/intersections?startLat=${startLat}&startLng=${startLng}&endLat=${endLat}&endLng=${endLng}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -63,7 +66,9 @@ export default class Home extends React.Component {
       }
     })
       .then(resp => {
-        return resp
+        console.log('.then returning');
+        console.log(resp);
+        // return resp
       })
       .catch(e => {
         Alert.alert(e);
@@ -87,15 +92,16 @@ export default class Home extends React.Component {
       console.log('startLat, startLng', startLat, startLng);
       console.log('duration', respJson.routes[0].legs[0].duration.text);
       console.log('endLat, endLng', endLat, endLng);
-      const waypoints = await this.fetchWaypoints(startLat, startLng, endLat, endLat, userPrefs);
-      console.log('finished fetchWaypoints')
+      const waypoints = await this.fetchWaypoints(startLat, startLng, endLat, endLng);
+      console.log('waypoints', waypoints)
       // AsyncStorage.getItem('preferences').then(value => console.log(value))
       //   .then(() => {
       //     this.fetchWaypoints(startLat, startLng, endLat, endLng);
       //   });
 
       const waypointsLatLong = [];
-      waypoints.forEach( waypoint => {
+      await waypoints.forEach( waypoint => {
+        console.log('iterating through waypoints');
         latLong = `via:${waypoint.lat},${waypoint.lng}`;
         waypointsLatLong.push(latLong);
       })
