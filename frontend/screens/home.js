@@ -136,6 +136,7 @@ export default class Home extends React.Component {
     let newOption = !this.state.optionsDisplayed;
     this.setState({ optionsDisplayed: newOption });
   }
+  
   render() {
     setTimeout(() => {
       this.setState({ loading: false });
