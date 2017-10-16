@@ -88,6 +88,7 @@ export default class Home extends React.Component {
       console.log('duration', respJson.routes[0].legs[0].duration.text);
       console.log('endLat, endLng', endLat, endLng);
       const waypoints = await this.fetchWaypoints(startLat, startLng, endLat, endLat, userPrefs);
+      console.log('finished fetchWaypoints')
       // AsyncStorage.getItem('preferences').then(value => console.log(value))
       //   .then(() => {
       //     this.fetchWaypoints(startLat, startLng, endLat, endLng);
@@ -106,6 +107,7 @@ export default class Home extends React.Component {
       const finalResp= await fetch(structuredUrl);
       const finalRespJson = await finalResp.json();
       console.log(finalRespJson);
+      consoleo.log('finished final fetch');
 
 
 
