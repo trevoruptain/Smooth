@@ -54,52 +54,61 @@ export default class Home extends React.Component {
     header: null
   };
 
-  fetchWaypoints(endLat, endLng) {
-    console.log("endLat", endLat);
-    fetch(`/api/intersections`, {
-      method: "POST",
+  fetchWaypoints(startLat, startLng, endLat, endLng, userPrefs) {
+    fetch(`https://smooth.herokuapp.com/api/intersections?startLat=${startLat}&startLng=${startLng}&endLat=${endLat}&endLng=${endLng}`, {
+      method: "GET",
       headers: {
         Accept: "application/json",
         "Content-type": "application/json"
-      },
-      body: JSON.stringify({
-        endLat: endLat,
-        endLng: endLng
-      })
+      }
     })
-      .then(resp => console.log(resp))
-      // .then( (respJson) => {
-      //   return respJson
-      // })
+      .then(resp => {
+        return resp
+      })
       .catch(e => {
-        console.log(e);
+        Alert.alert(e);
       });
-
-    // .then(function(resp) {
-    //   if (resp.status == 200) {
-    //     return resp.json();
-    //   } else throw new Error('Trevor sucks, error on the API server');
-    // })
-    // .then(resp => {
-    //   console.debug(resp);
-    // })
-    // .catch(e => {
-    //   console.error(e);
-    // })
   }
 
   async getDirections(startLoc, destinationLoc) {
-    // if startLoc is position: {lat,lng} convert to '${lat},${lng}' string format
+    if (startLoc.lat) {
+      startLoc = `${startLoc.lat},${startLoc.lng}`;
+    }
+
     try {
-      let resp = await fetch(
+      const resp = await fetch(
         `https://maps.googleapis.com/maps/api/directions/json?origin=${startLoc}&destination=${destinationLoc}`
       );
       let respJson = await resp.json();
-      const latNum = respJson.routes[0].legs[0].end_location.lat;
-      const lngNum = respJson.routes[0].legs[0].end_location.lng;
-      console.log(latNum, lngNum);
+      const startLat = respJson.routes[0].legs[0].start_location.lat;
+      const startLng = respJson.routes[0].legs[0].start_location.lng;
+      const endLat = respJson.routes[0].legs[0].end_location.lat;
+      const endLng = respJson.routes[0].legs[0].end_location.lng;
+      console.log('startLat, startLng', startLat, startLng);
+      console.log('duration', respJson.routes[0].legs[0].duration.text);
+      console.log('endLat, endLng', endLat, endLng);
+      const waypoints = await this.fetchWaypoints(startLat, startLng, endLat, endLat, userPrefs);
+      // AsyncStorage.getItem('preferences').then(value => console.log(value))
+      //   .then(() => {
+      //     this.fetchWaypoints(startLat, startLng, endLat, endLng);
+      //   });
 
-      this.fetchWaypoints(latNum, lngNum);
+      const waypointsLatLong = [];
+      waypoints.forEach( waypoint => {
+        latLong = `via:${waypoint.lat},${waypoint.lng}`;
+        waypointsLatLong.push(latLong);
+      })
+      const urlStructuredWaypoints = waypointsLatLong.join('|');
+      const structuredUrl = `
+      https://maps.googleapis.com/maps/api/directions/json?origin=${startLoc}&destination=${destinationLoc}
+      &waypoints=${urlStructuredWaypoints}`;
+
+      const finalResp= await fetch(structuredUrl);
+      const finalRespJson = await finalResp.json();
+      console.log(finalRespJson);
+
+
+
 
       let points = Polyline.decode(respJson.routes[0].overview_polyline.points);
       let coords = points.map((point, index) => {
@@ -168,7 +177,7 @@ export default class Home extends React.Component {
                 this.setState({ destinationText })}
               onSubmitEditing={() => {
                 this.getDirections(
-                  this.state.defaultStart,
+                  this.state.currPosition,
                   this.state.destinationText
                 );
               }}
