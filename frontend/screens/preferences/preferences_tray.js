@@ -59,6 +59,8 @@ export default class PreferencesTray extends React.Component {
             distanceImportance: 0,
         };
 
+        this.loading = false;
+
         this.updateSafety = this.updateSafety.bind(this);
         this.updateFlatness = this.updateFlatness.bind(this);
         this.updateDistance = this.updateDistance.bind(this);
@@ -66,6 +68,7 @@ export default class PreferencesTray extends React.Component {
     }
 
     componentWillMount() {
+        console.log("Hey");
         AsyncStorage.getItem("preferences").then(preferences => {
             if (preferences === null) {
                 AsyncStorage.setItem("preferences", JSON.stringify({
@@ -73,7 +76,7 @@ export default class PreferencesTray extends React.Component {
                     flatnessImportance: 0,
                     distanceImportance: 0
                 })).then(preferences => {
-                    console.log(preferences);
+                    this.setState(JSON.parse(preferences));
                 })
             } else {
                 this.setState(JSON.parse(preferences));
@@ -82,22 +85,11 @@ export default class PreferencesTray extends React.Component {
     }
 
     setDefault() {
-        let safety = this.state.safetyImportance;
-        let flatness = this.state.flatnessImportance;
-        let distance = this.state.distanceImportance;
-
-        console.log(this.state);
-        console.log(distance);
-        console.log(flatness);
-
        AsyncStorage.setItem("preferences", JSON.stringify({
-            safetyImportance: safety,
-            flatnessImportance: flatness,
-            distanceImportance: distance
-        })).then(preferences => {
-            console.log(preferences);
-        })
-
+           safetyImportance: this.state.safetyImportance,
+           flatnessImportance: this.state.flatnessImportance,
+           distanceImportance: this.state.distanceImportance
+        }))
     }
 
     updateSafety(value) {
@@ -136,7 +128,7 @@ export default class PreferencesTray extends React.Component {
                     onValueChange={this.updateSafety}
                     style={styles.slider} />
                 
-                <Text style={styles.scale}>{`Importance: ${this.importanceInt(this.state.safety)}`}</Text>
+                <Text style={styles.scale}>{`Importance: ${this.importanceInt(this.state.safetyImportance)}`}</Text>
 
                     <Text style={styles.text}>Flatness</Text>
                     <Slider value={this.state.flatnessImportance} 
@@ -144,7 +136,7 @@ export default class PreferencesTray extends React.Component {
                     onValueChange={this.updateFlatness}
                     style={styles.slider} />
 
-                    <Text style={styles.scale}>{`Importance: ${this.importanceInt(this.state.flatness)}`}</Text>
+                    <Text style={styles.scale}>{`Importance: ${this.importanceInt(this.state.flatnessImportance)}`}</Text>
 
                     <Text style={styles.text}>Distance</Text>
                     <Slider value={this.state.distanceImportance} 
@@ -152,14 +144,18 @@ export default class PreferencesTray extends React.Component {
                     onValueChange={this.updateDistance}
                     style={styles.slider} />
 
-                <Text style={styles.scale}>{`Importance: ${this.importanceInt(this.state.distance)}`}</Text>
+                <Text style={styles.scale}>{`Importance: ${this.importanceInt(this.state.distanceImportance)}`}</Text>
                 </View>
 
                 <View style={styles.textHolder}>
-                    <TouchableOpacity onPress={this.setDefault}>
-                        <Text style={styles.link}>Set Default</Text>
-                    </TouchableOpacity>
                     <TouchableOpacity onPress={this.props.toggle}>
+                        <Text style={styles.redLink}>Cancel</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => {
+                        this.setDefault();
+                        this.props.toggle();
+                    }
+                    }>
                         <View>
                             <Text style={styles.link}>OK</Text>
                         </View>
@@ -199,6 +195,10 @@ const styles = StyleSheet.create({
     link: {
         fontSize: 20,
         color: '#1D8DFF'
+    },
+    redLink: {
+        fontSize: 20,
+        color: '#ff0000'
     },
     slider: {
         width: width - 50,
