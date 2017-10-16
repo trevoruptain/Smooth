@@ -1,5 +1,11 @@
 import React from "react";
-import { View, StyleSheet, Dimensions, Animated, Easing, Slider, Text, Link, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Dimensions, Animated, Easing, Slider, Text, Link, TouchableOpacity, AsyncStorage } from "react-native";
+
+// AsyncStorage.setItem(“testkey”, “testvalue”);
+// AsyncStorage.getItem(“testkey”).then(
+//   value => console.log(value),
+//   err => setItem(“testkey”, “testvalue”)
+// );
 
 class SlideInView extends React.Component {
     state = {
@@ -11,8 +17,7 @@ class SlideInView extends React.Component {
             this.state.yPosition,
             {
                 toValue: 0,
-                easing: Easing.front,
-                duration: 200,
+                duration: 700,
             }
         ).start();
     }
@@ -23,7 +28,7 @@ class SlideInView extends React.Component {
             {
                 toValue: -400,
                 easing: Easing.back,
-                duration: 200,
+                duration: 700,
             }
         ).start();
     }
@@ -54,21 +59,49 @@ export default class PreferencesTray extends React.Component {
             distanceImportance: 0,
         };
 
+        this.loading = false;
+
         this.updateSafety = this.updateSafety.bind(this);
         this.updateFlatness = this.updateFlatness.bind(this);
         this.updateDistance = this.updateDistance.bind(this);
+        this.setDefault = this.setDefault.bind(this);
+    }
+
+    componentWillMount() {
+        console.log("Hey");
+        AsyncStorage.getItem("preferences").then(preferences => {
+            if (preferences === null) {
+                AsyncStorage.setItem("preferences", JSON.stringify({
+                    safetyImportance: 0,
+                    flatnessImportance: 0,
+                    distanceImportance: 0
+                })).then(preferences => {
+                    this.setState(JSON.parse(preferences));
+                })
+            } else {
+                this.setState(JSON.parse(preferences));
+            }
+        });
+    }
+
+    setDefault() {
+       AsyncStorage.setItem("preferences", JSON.stringify({
+           safetyImportance: this.state.safetyImportance,
+           flatnessImportance: this.state.flatnessImportance,
+           distanceImportance: this.state.distanceImportance
+        }))
     }
 
     updateSafety(value) {
-        this.setState({safety: value});
+        this.setState({safetyImportance: value});
     }
 
     updateFlatness(value) {
-        this.setState({ flatness: value });
+        this.setState({ flatnessImportance: value });
     }
 
     updateDistance(value) {
-        this.setState({ distance: value });
+        this.setState({ distanceImportance: value });
     }
 
     importanceInt(value) {
@@ -95,7 +128,7 @@ export default class PreferencesTray extends React.Component {
                     onValueChange={this.updateSafety}
                     style={styles.slider} />
                 
-                <Text style={styles.scale}>{`Importance: ${this.importanceInt(this.state.safety)}`}</Text>
+                <Text style={styles.scale}>{`Importance: ${this.importanceInt(this.state.safetyImportance)}`}</Text>
 
                     <Text style={styles.text}>Flatness</Text>
                     <Slider value={this.state.flatnessImportance} 
@@ -103,7 +136,7 @@ export default class PreferencesTray extends React.Component {
                     onValueChange={this.updateFlatness}
                     style={styles.slider} />
 
-                    <Text style={styles.scale}>{`Importance: ${this.importanceInt(this.state.flatness)}`}</Text>
+                    <Text style={styles.scale}>{`Importance: ${this.importanceInt(this.state.flatnessImportance)}`}</Text>
 
                     <Text style={styles.text}>Distance</Text>
                     <Slider value={this.state.distanceImportance} 
@@ -111,12 +144,18 @@ export default class PreferencesTray extends React.Component {
                     onValueChange={this.updateDistance}
                     style={styles.slider} />
 
-                <Text style={styles.scale}>{`Importance: ${this.importanceInt(this.state.distance)}`}</Text>
+                <Text style={styles.scale}>{`Importance: ${this.importanceInt(this.state.distanceImportance)}`}</Text>
                 </View>
 
                 <View style={styles.textHolder}>
-                    <Text style={styles.link}>Set Default</Text>
                     <TouchableOpacity onPress={this.props.toggle}>
+                        <Text style={styles.redLink}>Cancel</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => {
+                        this.setDefault();
+                        this.props.toggle();
+                    }
+                    }>
                         <View>
                             <Text style={styles.link}>OK</Text>
                         </View>
@@ -156,6 +195,10 @@ const styles = StyleSheet.create({
     link: {
         fontSize: 20,
         color: '#1D8DFF'
+    },
+    redLink: {
+        fontSize: 20,
+        color: '#ff0000'
     },
     slider: {
         width: width - 50,
